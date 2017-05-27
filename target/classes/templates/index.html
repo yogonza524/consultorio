@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Consultorio</title>
+        <link rel="icon" href="img/icon.png" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--Import Google Icon Font-->
+        <!--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />-->
+        
+        <!--Fonts by Google-->
+        <!--<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" />--> 
+        <!--<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />--> 
+        
+        <!-- Compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />-->
+        <link rel="stylesheet" href="css/materialize.css" />
+        <!--Import jQuery before materialize.js-->
+        <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+        <script src="js/materialize.js"></script>
+        
+        <link rel="stylesheet" href="app.css" />
+    </head>
+    <body class="background-body">
+        
+        
+        
+        <script>
+            $(document).on("ready", function(){
+                
+                $(".button-collapse").sideNav();
+                $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    constrain_width: false, // Does not change width of dropdown to that of the activator
+                    hover: false, // Activate on hover
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                  }
+                );
+            });
+        </script>
+    </body>
+</html>

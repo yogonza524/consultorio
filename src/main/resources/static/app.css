@@ -1,0 +1,43 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24/05/2017, 13:01:28
+    Author     : gonza
+*/
+
+.background-body{
+    background: url('../img/background.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+} 
+
+.no-padding{
+    padding: 0px !important;
+}
+
+
+.roboto{
+    font-family: 'Roboto', sans-serif;
+}
+.quicksand{
+    font-family: 'Quicksand', sans-serif;
+}
+.no-margin{
+    margin: 0px;
+}
+.margin-logo{
+    margin-left: 12px;
+}
+
+.top-menu{
+    z-index: 2;
+}
+
+.card-nuevo-paciente{
+    z-index: 1;
+}

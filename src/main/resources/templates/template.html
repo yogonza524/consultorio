@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Dentista - Turnos</title>
+        <link rel="icon" href="img/icon.png" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        
+        <!--Fonts by Google-->
+        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" /> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" /> 
+        
+        <!-- Compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />-->
+        <link rel="stylesheet" href="css/materialize.css" />
+        <!--Import jQuery before materialize.js-->
+        <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+        <script src="js/materialize.js"></script>
+        
+        <link rel="stylesheet" href="app.css" />
+    </head>
+    <body class="background-body">
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href="#!" class="black-text">Configuracion</a></li>
+          <li class="divider"></li>
+          <li><a href="#!" class="black-text">Salir</a></li>
+        </ul>
+  <nav>
+    <div class="nav-wrapper grey lighten-4">
+      <a href="/home" class="brand-logo center quicksand black-text hide-on-large-only" th:text="${logoName}"></a>
+      <a href="/home" class="brand-logo left quicksand black-text hide-on-med-and-down margin-logo" th:text="${logoName}"></a>
+      <a href="#" data-activates="mobile" class="button-collapse black-text"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+          <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
+                 <div class="input-field">
+                   <input id="search" type="search" required="true" th:field="*{search}" />
+                   <label class="label-icon black-text" for="search"><i class="material-icons black-text">search</i></label>
+                   <i class="mdi-navigation-close"></i>
+                 </div>
+               </form></li>
+          <li><a href="/home" class="black-text">Inicio</a></li>
+            <li><a href="/pacientes" class="black-text">Pacientes</a></li>
+            <li class=""><a href="#" class="black-text">Turnos</a></li>
+            <li><a class="dropdown-button black-text" href="#!" data-activates="dropdown1" ><i class="material-icons">settings</i></a></li>
+      </ul>
+      <ul class="side-nav" id="mobile">
+          <li><a href="/home" class="black-text">Inicio</a></li>
+          <li><a href="/pacientes" class="black-text">Pacientes</a></li>
+          <li class="active"><a href="#" class="black-text">Turnos</a></li>
+            
+      </ul>
+    </div>
+  </nav>
+        
+        <script>
+            $(document).on("ready", function(){
+                
+                $(".button-collapse").sideNav();
+                $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    constrain_width: false, // Does not change width of dropdown to that of the activator
+                    hover: false, // Activate on hover
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                  }
+                );
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Dentista - Turnos</title>
+        <link rel="icon" href="img/icon.png" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        
+        <!--Fonts by Google-->
+        <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet" /> 
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" /> 
+        
+        <!-- Compiled and minified CSS -->
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />-->
+        <link rel="stylesheet" href="css/materialize.css" />
+        <!--Import jQuery before materialize.js-->
+        <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
+        <script src="js/materialize.js"></script>
+        
+        <link rel="stylesheet" href="app.css" />
+        
+        <script src="snap.svg.js" />
+        <script src="pieza.js" />
+    </head>
+    <body class="background-body">
+        <!-- Dropdown Structure -->
+        <ul id="dropdown1" class="dropdown-content">
+          <li><a href="#!" class="black-text">Configuracion</a></li>
+          <li class="divider"></li>
+          <li><a href="#!" class="black-text">Salir</a></li>
+        </ul>
+  <nav>
+    <div class="nav-wrapper grey lighten-4">
+      <a href="/home" class="brand-logo center quicksand black-text hide-on-large-only" th:text="${logoName}"></a>
+      <a href="/home" class="brand-logo left quicksand black-text hide-on-med-and-down margin-logo" th:text="${logoName}"></a>
+      <a href="#" data-activates="mobile" class="button-collapse black-text"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+          <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
+                 <div class="input-field">
+                   <input id="search" type="search" required="true" th:field="*{search}" />
+                   <label class="label-icon black-text" for="search"><i class="material-icons black-text">search</i></label>
+                   <i class="mdi-navigation-close"></i>
+                 </div>
+               </form></li>
+          <li><a href="/home" class="black-text">Inicio</a></li>
+            <li><a href="/pacientes" class="black-text">Pacientes</a></li>
+            <li class=""><a href="#" class="black-text">Turnos</a></li>
+            <li><a class="dropdown-button black-text" href="#!" data-activates="dropdown1" ><i class="material-icons">settings</i></a></li>
+      </ul>
+      <ul class="side-nav" id="mobile">
+          <li><a href="/home" class="black-text">Inicio</a></li>
+          <li><a href="/pacientes" class="black-text">Pacientes</a></li>
+          <li class="active"><a href="#" class="black-text">Turnos</a></li>
+            
+      </ul>
+    </div>
+  </nav>
+        
+        <!--Body-->
+        <div class="row">
+            <div class="col s22 m8 l8 offset-m2 offset-l2">
+                <div class="card">
+                    <div class="card-content">
+                        <div th:if="${noPacient} == true">
+                            <h1>Paciente no encontrado</h1>
+                        </div>
+                        <div th:if="${noPacient} == false">
+                            <a th:href="@{/modificar_paciente(id=${paciente.id})}">Editar</a>
+                            <div class="card-title" th:text="${paciente.nombreYapellido}"></div>
+                            <span class="blue-text text-lighten-2" th:text="${paciente.domicilio}"></span><br />
+                            <span class="blue-text text-lighten-2" th:text="${paciente.dni}"></span><br />
+                            <span class="blue-text text-lighten-2" th:text="${paciente.obraSocial}"></span><br />
+                            <div class="row">
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">18</span>
+                                    <svg id="pieza-18" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">17</span>
+                                    <svg id="pieza-17" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">16</span>
+                                    <svg id="pieza-16" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">15</span>
+                                    <svg id="pieza-15" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">14</span>
+                                    <svg id="pieza-14" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">13</span>
+                                    <svg id="pieza-13" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">12</span>
+                                    <svg id="pieza-12" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                                
+                                <div class="col s2">
+                                    <span class="center-align" style="display:block;">11</span>
+                                    <svg id="pieza-11" style="width: 100px; height: 100px;"></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            $(document).on("ready", function(){
+                
+                $(".button-collapse").sideNav();
+                $('.dropdown-button').dropdown({
+                    inDuration: 300,
+                    outDuration: 225,
+                    constrain_width: false, // Does not change width of dropdown to that of the activator
+                    hover: false, // Activate on hover
+                    gutter: 0, // Spacing from edge
+                    belowOrigin: false, // Displays dropdown below the button
+                    alignment: 'left' // Displays dropdown with edge aligned to the left of button
+                  }
+                );
+        
+                var pieza18 = new Pieza("#pieza-18",$("#pieza-18").parent().width() - 10);
+                
+                //Colocar un evento hover a la pieza18
+                pieza18.hoverTop("blue");
+                pieza18.hoverBottom("red");
+                pieza18.hoverCenter("cyan");
+                pieza18.hoverLeft("brown");
+                pieza18.hoverRight("yellow");
+                
+                //Colocar el evento click a la pieza18
+                pieza18.clickCenter(function(event){
+                   alert("Arreglo en la corona central"); 
+                });
+                
+                pieza18.clickLeft(function(event){
+                   alert("Arreglo a la parte izquierda"); 
+                });
+                
+                var pieza17 = new Pieza("#pieza-17",$("#pieza-17").parent().width() - 10);
+                var pieza16 = new Pieza("#pieza-16",$("#pieza-16").parent().width() - 10);
+                var pieza15 = new Pieza("#pieza-15",$("#pieza-15").parent().width() - 10);
+                var pieza14 = new Pieza("#pieza-14",$("#pieza-14").parent().width() - 10);
+                var pieza13 = new Pieza("#pieza-13",$("#pieza-13").parent().width() - 10);
+                var pieza12 = new Pieza("#pieza-12",$("#pieza-12").parent().width() - 10);
+                var pieza11 = new Pieza("#pieza-11",$("#pieza-11").parent().width() - 10);
+            });
+        </script>
+    </body>
+</html>
