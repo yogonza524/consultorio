@@ -6,44 +6,49 @@ function Pieza(id, width){
         this.colorBlur = "rgb(236, 240, 241)";
 
         //Methods
-        var hoverPath = function(path, colorHover, colorBlur){
+        var hoverPath = function(path, colorHover, colorBlur, hover){
                 this.colorHover = colorHover;
                 this.colorBlur = colorBlur;
 
-                path.mouseover(function() {
+                path
+                    .mouseover(function() {
                             this.animate({
                                 fill: colorHover
                             }, 200);
-                        }).mouseout(function() {
+                            if (hover !== null && hover !== 'undefined') {
+                                hover();
+                            }
+                        })
+                    .mouseout(function() {
                             this.animate({
                                 fill: colorBlur
                             }, 200);
                         });
         }
 
-        this.hoverTop = function(colorHover){
+        this.hoverTop = function(colorHover, hover){
                 var colorBlur = this.top.attr("fill");
-                hoverPath(this.top, colorHover, colorBlur);
+                hoverPath(this.top, colorHover, colorBlur, hover);
         }
 
-        this.hoverLeft = function(colorHover){
+        this.hoverLeft = function(colorHover, hover){
                 var colorBlur = this.left.attr("fill");
-                hoverPath(this.left, colorHover, colorBlur);
+                hoverPath(this.left, colorHover, colorBlur, hover);
         }
 
-        this.hoverRight = function(colorHover){
+        this.hoverRight = function(colorHover, hover){
                 var colorBlur = this.right.attr("fill");
-                hoverPath(this.right, colorHover, colorBlur);
+                hoverPath(this.right, colorHover, colorBlur, hover);
         }
 
-        this.hoverCenter = function(colorHover){
+        this.hoverCenter = function(colorHover, hover){
                 var colorBlur = this.center.attr("fill");
-                hoverPath(this.center, colorHover, colorBlur);
+                hoverPath(this.center, colorHover, colorBlur, hover);
         }
 
-        this.hoverBottom = function(colorHover){
+        this.hoverBottom = function(colorHover, hover){
                 var colorBlur = this.bottom.attr("fill");
-                hoverPath(this.bottom, colorHover, colorBlur);
+                hoverPath(this.bottom, colorHover, colorBlur, hover);
         }
 
         this.paint = function(){

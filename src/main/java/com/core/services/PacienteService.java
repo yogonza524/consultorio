@@ -45,7 +45,7 @@ public class PacienteService {
 "    VALUES ('" + p.getNombreYapellido() + "', '" + p.getDni() + "', '" + 
                     p.getDomicilio() + "', '" + p.getTelefonoFijo() + "', '" + 
                     p.getTelefonoMovil() + "', '" + p.getObraSocial() + "', " +
-                    (p.getFechaDeNacimiento() != null? "'" +  p.getFechaDeNacimiento() + "'" : "'01/01/1900'") + ", '" + p.getObservaciones() + "')";
+                    (p.getFechaDeNacimiento() != null && !p.getFechaDeNacimiento().isEmpty()? "'" +  p.getFechaDeNacimiento() + "'" : "'01/01/1900'") + ", '" + p.getObservaciones() + "')";
             try {
                 Conexion.getInstancia().insertar(query);
                 result = true;

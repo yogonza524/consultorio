@@ -41,3 +41,12 @@ and open the template in the editor.
 .card-nuevo-paciente{
     z-index: 1;
 }
+.fixed-card-detail {
+    position: fixed;
+    bottom: 0;
+    right:10px;
+    background-color: white;
+}
+.body-historial{
+    height: 200px !important; overflow-y: scroll; position:relative;
+}

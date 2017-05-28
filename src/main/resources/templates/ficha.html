@@ -31,6 +31,7 @@ and open the template in the editor.
         
         <script src="snap.svg.js" />
         <script src="pieza.js" />
+        
     </head>
     <body class="background-body">
         <!-- Dropdown Structure -->
@@ -127,6 +128,17 @@ and open the template in the editor.
             </div>
         </div>
         
+        
+        <ul class="collapsible fixed-card-detail" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">history</i>Historial</div>
+              <div class="collapsible-body body-historial">
+                  <p id="pieza-historial-title" class="center-align">Piezas dentales</p>
+                  <img src="img/diente.png" contenteditable="responsive-img center-align" style="max-width: 64px; opacity: .5;" />
+              </div>
+            </li>
+        </ul>
+        
         <script>
             $(document).on("ready", function(){
                 
@@ -145,11 +157,15 @@ and open the template in the editor.
                 var pieza18 = new Pieza("#pieza-18",$("#pieza-18").parent().width() - 10);
                 
                 //Colocar un evento hover a la pieza18
-                pieza18.hoverTop("blue");
-                pieza18.hoverBottom("red");
-                pieza18.hoverCenter("cyan");
-                pieza18.hoverLeft("brown");
-                pieza18.hoverRight("yellow");
+                pieza18.hoverTop("blue", function(){
+                    if ($(".collapsible-header").hasClass("active") === false) {
+                        $(".collapsible-header").trigger("click");
+                    }
+                });
+                pieza18.hoverBottom("red", null);
+                pieza18.hoverCenter("cyan", null);
+                pieza18.hoverLeft("brown", null);
+                pieza18.hoverRight("yellow", null);
                 
                 //Colocar el evento click a la pieza18
                 pieza18.clickCenter(function(event){
@@ -160,6 +176,8 @@ and open the template in the editor.
                    alert("Arreglo a la parte izquierda"); 
                 });
                 
+                $(pieza18).css({"cursor" : "pointer"});
+                
                 var pieza17 = new Pieza("#pieza-17",$("#pieza-17").parent().width() - 10);
                 var pieza16 = new Pieza("#pieza-16",$("#pieza-16").parent().width() - 10);
                 var pieza15 = new Pieza("#pieza-15",$("#pieza-15").parent().width() - 10);
@@ -167,7 +185,14 @@ and open the template in the editor.
                 var pieza13 = new Pieza("#pieza-13",$("#pieza-13").parent().width() - 10);
                 var pieza12 = new Pieza("#pieza-12",$("#pieza-12").parent().width() - 10);
                 var pieza11 = new Pieza("#pieza-11",$("#pieza-11").parent().width() - 10);
+                
+                $('.collapsible').collapsible();
+                
+                $(".fixed-card-detail").width($(".body-historial").width());
+                $(".body-historial").height(window.innerHeight / 2);
+                
             });
+            
         </script>
     </body>
 </html>

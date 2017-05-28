@@ -98,12 +98,21 @@ public class AppController {
             if (pacienteService.add(nuevoPaciente)) {
                 success = true;
                 System.out.println("Agregado!");
+                
+                //Crear las piezar dentales para el nuevo paciente
+                
             }
             else{
                 System.out.println("Error al agregar " + pacienteService.getError());
                 hasError = true;
                 model.addAttribute("hasError", hasError);
-                model.addAttribute("errorMessage", pacienteService.getError());
+                if (pacienteService.getError().contains("dni_unique")) {
+                    model.addAttribute("errorMessage", "Error: ya existe un paciente con el DNI " + nuevoPaciente.getDni());
+                }
+                else{
+                    model.addAttribute("errorMessage", pacienteService.getError());
+                }
+                model.addAttribute("nuevoPaciente", nuevoPaciente);
             }
             
             model.addAttribute("nuevoPaciente", new Paciente());
