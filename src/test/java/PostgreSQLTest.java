@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import com.core.dao.models.Ficha;
+import com.core.services.FichaService;
 import com.core.services.UsuarioService;
 import com.core.util.Conexion;
 import java.sql.SQLException;
@@ -56,5 +58,34 @@ public class PostgreSQLTest {
          
         UsuarioService us = new UsuarioService();
         us.login("yogonza524", "123");
+     }
+     
+     @Test
+     @Ignore
+     public void fichaTest(){
+         FichaService fs = new FichaService();
+         
+         Ficha f = new Ficha();
+         f.setBruxismo(true);
+         f.setCantidadDePiezasExistentes(32);
+         f.setFuma(true);
+         f.setCuantosFuma("Unos cuantos");
+         
+         if (fs.add(f)) {
+             System.out.println("Agregado");
+         }
+         else{
+             System.out.println("No agregado");
+         }
+     }
+     
+     @Test
+     public void updateTest(){
+        try {
+            int u = Conexion.getInstancia().actualizar("UPDATE pacientes p SET observaciones = 'copete' WHERE p.id = 'a526fd47-8912-4f27-9011d-dc15fa33'");
+            System.out.println(u);
+        } catch (SQLException ex) {
+            Logger.getLogger(PostgreSQLTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
      }
 }

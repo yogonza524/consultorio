@@ -52,7 +52,7 @@ and open the template in the editor.
              <ul class="right hide-on-med-and-down">
                  <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
                  <div class="input-field">
-                   <input id="search" type="search" required="true" th:field="*{search}" />
+                   <input id="search" placeholder="Buscar" type="search" required="true" th:field="*{search}" />
                    <label class="label-icon black-text" for="search"><i class="material-icons black-text">search</i></label>
                    <i class="mdi-navigation-close"></i>
                  </div>
@@ -168,10 +168,12 @@ and open the template in the editor.
         
                 $('.top-menu').stick_in_parent();
                   
-                  $('.datepicker').pickadate({
+                $('.datepicker').pickadate({
                     selectMonths: true, // Creates a dropdown to control month
-                    selectYears: 15, // Creates a dropdown of 15 years to control year
-                    format: 'dd-mm-yyyy'
+                    selectYears: 117, // Creates a dropdown of 15 years to control year
+                    format: 'dd-mm-yyyy',
+                    min : new Date(1900,01,01),
+                    max : new Date()
                   });
             });
         </script>

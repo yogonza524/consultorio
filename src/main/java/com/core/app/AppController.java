@@ -137,15 +137,35 @@ public class AppController {
         model.addAttribute("buscado", search);
         model.addAttribute("logoName", logoName);
         model.addAttribute("buscar", new Busqueda());
+        model.addAttribute("get", false);
         
-        List<String> l = new ArrayList<>();
-        l.add("Primero");
-        l.add("Segundo");
-        l.add("Tercero");
+        if (search != null && !search.isEmpty()) {
+            List<Paciente> pacientes = pacienteService.find(search);
+            if (pacientes != null && !pacientes.isEmpty()) {
+                model.addAttribute("pacientes", pacientes);
+                model.addAttribute("noResult", false);
+            }
+            else{
+                model.addAttribute("noResult", true);
+            }
+        }
         
-        model.addAttribute("rows", l);
         
         System.out.println("Buscado: " + search);
+        
+        return "busqueda";
+    }
+    
+    @GetMapping("/busqueda")
+    public String buscarGet(@ModelAttribute("search") String search, 
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Model model) {
+        model.addAttribute("buscado", search);
+        model.addAttribute("logoName", logoName);
+        model.addAttribute("buscar", new Busqueda());
+        model.addAttribute("get", true);
+        model.addAttribute("noResult", true);
         
         return "busqueda";
     }
@@ -207,9 +227,39 @@ public class AppController {
             }
         }
         
-        
+        model.addAttribute("paciente", pacienteService.byId(id));
+        model.addAttribute("secret", UUID.randomUUID().toString());
         
         return "modificar_paciente";
+    }
+    
+    @PostMapping("/modificar_paciente")
+    public String procesarModificarPaciente(Model model,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            @RequestParam(value = "id", defaultValue = "No seleccionado") String id,
+            @ModelAttribute("paciente") Paciente paciente){
+        
+        model.addAttribute("paciente", paciente);
+        model.addAttribute("secret", UUID.randomUUID().toString());
+        model.addAttribute("buscar", new Busqueda());
+        model.addAttribute("logoName", logoName);
+        
+        if (!id.equals("No seleccionado")) {
+            boolean updated = pacienteService.update(paciente);
+                
+            if (pacienteService.hasError()) {
+                model.addAttribute("errorMessage", pacienteService.getError());
+                model.addAttribute("hasError", true);
+                model.addAttribute("success", false);
+            }
+            else{
+                model.addAttribute("success", "Paciente " + paciente.getNombreYapellido() + " actualizado con éxito!");
+                model.addAttribute("hasError", false);
+            }
+        }
+        
+        return "/modificar_paciente";
     }
     
     @RequestMapping("/modificar_pacientes")

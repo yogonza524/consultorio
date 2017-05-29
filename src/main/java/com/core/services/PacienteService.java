@@ -6,6 +6,7 @@
 
 package com.core.services;
 
+import com.core.dao.models.Ficha;
 import com.core.dao.models.Paciente;
 import com.core.enums.PacienteAttribute;
 import com.core.util.Conexion;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PacienteService {
-
+    
     private String error;
     
     public String getError(){
@@ -33,23 +35,38 @@ public class PacienteService {
     }
     
     public boolean hasError(){
-        return !error.isEmpty();
+        return error != null && !error.isEmpty();
     }
     
     public boolean add(Paciente p){
         boolean result = false;
         if (p != null) {
-            String query = "INSERT INTO pacientes(\n" +
+            String id = UUID.randomUUID().toString().substring(0,32);
+            String query = "INSERT INTO pacientes(\n" + "id," +
 "            nombre_y_apellido, dni, domicilio, telefono_fijo, telefono_movil, \n" +
 "            obra_social, fecha_de_nacimiento, observaciones)\n" +
-"    VALUES ('" + p.getNombreYapellido() + "', '" + p.getDni() + "', '" + 
+"    VALUES ('" + id + "', '" + p.getNombreYapellido() + "', '" + p.getDni() + "', '" + 
                     p.getDomicilio() + "', '" + p.getTelefonoFijo() + "', '" + 
                     p.getTelefonoMovil() + "', '" + p.getObraSocial() + "', " +
                     (p.getFechaDeNacimiento() != null && !p.getFechaDeNacimiento().isEmpty()? "'" +  p.getFechaDeNacimiento() + "'" : "'01/01/1900'") + ", '" + p.getObservaciones() + "')";
             try {
                 Conexion.getInstancia().insertar(query);
-                result = true;
+                
+                //Creo la ficha
+                FichaService fs = new FichaService();
+                
+                Ficha f = new Ficha();
+                f.setId(id);
+                f.setBruxismo(false);
+                f.setCuantosFuma("No especificado");
+                f.setMiorelajante(false);
+                f.setUsaPlaca(false);
+                f.setOclusion("No especificado");
+                f.setCantidadDePiezasExistentes(32);
+                
+                result = fs.add(f);
                 error = "";
+                
             } catch (Exception e) {
                 error = e.getMessage();
                 e.printStackTrace();
@@ -151,22 +168,66 @@ public class PacienteService {
         return result;
     }
     
-    public void update(Paciente p){
+    public List<Paciente> find(String token){
+        List<Paciente> result = null;
+        if (token != null && !token.isEmpty()) {
+            try {
+                List<HashMap<String, Object>> q = Conexion.getInstancia()
+                        .consultar("SELECT * FROM pacientes p WHERE p.id LIKE '%' || '" + token + "'|| '%'"
+                                + " OR p.nombre_y_apellido LIKE '%' || '" + token + "' || '%'"
+                                + " OR p.observaciones LIKE '%' || '" + token + "' || '%'"
+                                + " OR p.dni LIKE '%' || '" + token + "' || '%'"
+                                + " OR p.domicilio LIKE '%' || '" + token + "' || '%'"
+                                + ";");
+                if (q != null && !q.isEmpty()) {
+                    result = new ArrayList<>();
+                    
+                    for(HashMap<String,Object> r : q){
+                        Paciente p = new Paciente();
+                        p.setDni(r.get("dni").toString());
+                        p.setDomicilio(r.get("domicilio").toString());
+                        p.setId(r.get("id").toString());
+                        p.setNombreYapellido(r.get("nombre_y_apellido").toString());
+                        p.setObraSocial(r.get("obra_social").toString());
+                        p.setFechaDeNacimiento(r.get("fecha_de_nacimiento").toString());
+                        p.setTelefonoFijo(r.get("telefono_fijo").toString());
+                        p.setTelefonoMovil(r.get("telefono_movil").toString());
+                        p.setObservaciones(r.get("observaciones").toString());
+                        
+                        result.add(p);
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PacienteService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+    }
+    
+    public boolean update(Paciente p){
+        System.out.println(p);
+        boolean result = false;
         if (p != null && p.getId() != null && !p.getId().isEmpty()) {
             try {
                 String query = "UPDATE pacientes p SET"
-                        + " nobre_y_apellido = '" + p.getNombreYapellido() + "'"
-                        + " domicilio = '" + p.getDomicilio() + "'"
-                        + " dni = '" + p.getDni()+ "'"
-                        + " telefono_fijo = '" + p.getTelefonoFijo() + ""
-                        + " telefono_movil = '" + p.getTelefonoMovil() + "'"
-                        + " obra_social = '" + p.getObraSocial() + "'"
+                        + " nombre_y_apellido = '" + p.getNombreYapellido() + "',"
+                        + " domicilio = '" + p.getDomicilio() + "',"
+                        + " dni = '" + p.getDni()+ "',"
+                        + " telefono_fijo = '" + p.getTelefonoFijo() + "',"
+                        + " telefono_movil = '" + p.getTelefonoMovil() + "',"
+                        + " obra_social = '" + p.getObraSocial() + "',"
+                        + " observaciones = '" + p.getObservaciones() + "',"
+                        + " fecha_de_nacimiento = '" + p.getFechaDeNacimiento() + "'"
                         + " WHERE p.id = '" + p.getId() +"'";
-                Conexion.getInstancia().actualizar(query);
+                System.out.println(query);
+                result = Conexion.getInstancia().update(query);
+                error = "";
             } catch (Exception e) {
+                error = e.getMessage();
                 e.printStackTrace();
             }
         }
+        return result;
     }
     
     public void updateFields(Paciente p, PacienteAttribute... attrs){

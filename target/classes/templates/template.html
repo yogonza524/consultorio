@@ -26,6 +26,7 @@ and open the template in the editor.
         <!-- Compiled and minified JavaScript -->
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
         <script src="js/materialize.js"></script>
+        <script src="sticky.js"></script>
         
         <link rel="stylesheet" href="app.css" />
     </head>
@@ -36,32 +37,32 @@ and open the template in the editor.
           <li class="divider"></li>
           <li><a href="#!" class="black-text">Salir</a></li>
         </ul>
-  <nav>
-    <div class="nav-wrapper grey lighten-4">
-      <a href="/home" class="brand-logo center quicksand black-text hide-on-large-only" th:text="${logoName}"></a>
-      <a href="/home" class="brand-logo left quicksand black-text hide-on-med-and-down margin-logo" th:text="${logoName}"></a>
-      <a href="#" data-activates="mobile" class="button-collapse black-text"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-          <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
-                 <div class="input-field">
-                   <input id="search" type="search" required="true" th:field="*{search}" />
-                   <label class="label-icon black-text" for="search"><i class="material-icons black-text">search</i></label>
-                   <i class="mdi-navigation-close"></i>
-                 </div>
-               </form></li>
-          <li><a href="/home" class="black-text">Inicio</a></li>
-            <li><a href="/pacientes" class="black-text">Pacientes</a></li>
-            <li class=""><a href="#" class="black-text">Turnos</a></li>
-            <li><a class="dropdown-button black-text" href="#!" data-activates="dropdown1" ><i class="material-icons">settings</i></a></li>
-      </ul>
-      <ul class="side-nav" id="mobile">
-          <li><a href="/home" class="black-text">Inicio</a></li>
-          <li><a href="/pacientes" class="black-text">Pacientes</a></li>
-          <li class="active"><a href="#" class="black-text">Turnos</a></li>
-            
-      </ul>
-    </div>
-  </nav>
+        <nav class="top-menu">
+          <div class="nav-wrapper grey lighten-4">
+            <a href="/home" class="brand-logo center quicksand black-text hide-on-large-only" th:text="${logoName}"></a>
+            <a href="/home" class="brand-logo left quicksand black-text hide-on-med-and-down margin-logo" th:text="${logoName}"></a>
+            <a href="#" data-activates="mobile" class="button-collapse black-text"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
+                       <div class="input-field">
+                         <input id="search" placeholder="Buscar" type="search" required="true" th:field="*{search}" />
+                         <label class="label-icon black-text" for="search"><i class="material-icons black-text">search</i></label>
+                         <i class="mdi-navigation-close"></i>
+                       </div>
+                     </form></li>
+                <li><a href="/home" class="black-text">Inicio</a></li>
+                  <li><a href="/pacientes" class="black-text">Pacientes</a></li>
+                  <li class=""><a href="#" class="black-text">Turnos</a></li>
+                  <li><a class="dropdown-button black-text" href="#!" data-activates="dropdown1" ><i class="material-icons">settings</i></a></li>
+            </ul>
+            <ul class="side-nav" id="mobile">
+                <li><a href="/home" class="black-text">Inicio</a></li>
+                <li><a href="/pacientes" class="black-text">Pacientes</a></li>
+                <li class="active"><a href="#" class="black-text">Turnos</a></li>
+
+            </ul>
+          </div>
+        </nav>
         
         <script>
             $(document).on("ready", function(){
@@ -77,6 +78,8 @@ and open the template in the editor.
                     alignment: 'left' // Displays dropdown with edge aligned to the left of button
                   }
                 );
+        
+                $('.top-menu').stick_in_parent();
             });
         </script>
     </body>

@@ -149,6 +149,10 @@ public final class Conexion {
         return rs;
     }//end main
     
+    public synchronized boolean update(String sql) throws SQLException{
+        return actualizar(sql) == 1;
+    }
+    
     /**
      * Realiza una consulta a la base de datos. Operacion Select
      * @param sql Consulta de tipo SELECT a la base de datos

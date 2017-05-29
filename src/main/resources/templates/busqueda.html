@@ -26,6 +26,7 @@ and open the template in the editor.
         <!-- Compiled and minified JavaScript -->
         <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>-->
         <script src="js/materialize.js"></script>
+        <script src="sticky.js"></script>
         
         <link rel="stylesheet" href="app.css" />
     </head>
@@ -42,7 +43,7 @@ and open the template in the editor.
           <li class="divider"></li>
           <li><a href="#!" class="indigo-text text-darken-3">Salir</a></li>
         </ul>
-  <nav>
+  <nav class="top-menu">
     <div class="nav-wrapper grey lighten-4">
       <a href="/home" class="brand-logo center quicksand black-text hide-on-large-only" th:text="${logoName}"></a>
       <a href="/home" class="brand-logo left quicksand black-text hide-on-med-and-down margin-logo" th:text="${logoName}"></a>
@@ -50,19 +51,19 @@ and open the template in the editor.
       <ul class="right hide-on-med-and-down">
           <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
           <div class="input-field">
-            <input id="search" type="search" required="true" th:field="*{search}" />
+              <input id="search" placeholder="Buscar" type="search" required="true" th:field="*{search}" />
             <label class="label-icon black-text" for="search"><i class="material-icons black-text">search</i></label>
             <i class="mdi-navigation-close"></i>
           </div>
         </form></li>
           <li><a href="/home" class="black-text">Inicio</a></li>
-          <li class="active"><a href="#" class="black-text">Pacientes</a></li>
+          <li class=""><a href="/pacientes" class="black-text">Pacientes</a></li>
           <li><a href="/turnos" class="black-text">Turnos</a></li>
             <li><a class="dropdown-button black-text" href="#!" data-activates="dropdown1" ><i class="material-icons">settings</i></a></li>
       </ul>
       <ul class="side-nav" id="mobile">
           <li><a href="/home" class="black-text">Inicio</a></li>
-          <li class="active"><a href="#" class="black-text">Pacientes</a></li>
+          <li class=""><a href="/pacientes" class="black-text">Pacientes</a></li>
             <li><a href="/turnos" class="black-text">Turnos</a></li>
             <li><a class="dropdown-button black-text" href="#!" data-activates="dropdown2" ><i class="material-icons">settings</i></a></li>
             
@@ -70,18 +71,50 @@ and open the template in the editor.
     </div>
   </nav>
         
-        <div class="row">
-            <div class="col s12">
-                <h1>
-                    <p th:text="${buscado}"></p>
-                </h1>
-                <ul class="collection">
-                    <li class="collection-item" th:each="row : ${rows}">
-                        <span th:text="${row}"></span>
+        
+      <div class="row" th:if="${get} == true">
+        <div class="col s12 m8 l8 offset-m2 offset-l2">
+          <div class="card">
+            <div class="card-image">
+              <img src="img/od.jpg" />
+              <span class="card-title">Busqueda</span>
+            </div>
+            <div class="card-content">
+              <p>
+                  Por favor utilice el cuadro de búsqueda ubicado en el panel superior
+              </p>
+            </div>
+            <div class="card-action">
+                <a href="/nuevo_paciente" class="blue-text">Nuevo Paciente</a>
+                <a href="/pacientes" class="blue-text">Ver pacientes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+            
+        <div class="row" th:if="${get == false and noResult == true}">
+            <div class="col s12 m8 l8 offset-m2 offset-l2">
+              <div class="card-panel teal">
+                <span class="white-text">
+                    Su búsqueda no produjo ningún resultado, intentelo utlizando
+                    otro criterio
+                </span>
+              </div>
+            </div>
+        </div>
+        
+        <div class="row" th:if="${get == false and noResult == false}">
+            <div class="col s12 m8 l8 offset-m2 offset-l2">
+                <ul class="collection card" id="busqueda-body">
+                    <li class="collection-item avatar paciente" th:each="paciente : ${pacientes}">
+                        <img src="img/paciente.png" alt="" class="circle responsive-img" />
+                        <a th:href="@{/ficha(id=${paciente.id})}" class="blue-text title" th:text="${paciente.nombreYapellido}"></a>
+                        <p><span class="blue-text">DNI: </span><a th:href="@{/ficha(id=${paciente.id})}" class="blue-text" th:text="${paciente.dni}"></a><br></br>
+                            <a th:href="@{/ficha(id=${paciente.id})}" class="blue-text" th:text="${paciente.domicilio}"></a>
+                        </p>
                     </li>
-                        
-                        
                 </ul>
+                <ul class="pagination"></ul>
             </div>
         </div>
         
@@ -99,6 +132,8 @@ and open the template in the editor.
                     alignment: 'left' // Displays dropdown with edge aligned to the left of button
                   }
                 );
+                
+                $('.top-menu').stick_in_parent();
             });
         </script>
     </body>

@@ -46,10 +46,10 @@ and open the template in the editor.
       <ul class="right hide-on-med-and-down roboto">
           <li><form class="center" action="#" method="POST" th:action="@{/busqueda}" th:object="${buscar}">
                  <div class="input-field">
-                   <input id="search" type="search" required="true" th:field="*{search}" />
+                   <input id="search" placeholder="Buscar" type="search" required="true" th:field="*{search}" />
                    <label class="label-icon black-text" for="search">
-                       <!--<i class="material-icons black-text">search</i>-->
-                       <i class="fa fa-search" aria-hidden="true"></i>
+                       <i class="material-icons black-text">search</i>
+                       <!--<i class="fa fa-search" aria-hidden="true"></i>-->
                    </label>
                    <i class="mdi-navigation-close"></i>
                  </div>

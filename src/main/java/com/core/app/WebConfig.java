@@ -7,6 +7,7 @@
 package com.core.app;
 
 import com.core.interceptors.HomeInterceptor;
+import com.core.interceptors.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -36,9 +37,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 .addPathPatterns("/nuevo_paciente")
                 .addPathPatterns("/busqueda")
                 .addPathPatterns("/modificar_paciente/**")
+                .addPathPatterns("/procesar_modificar_paciente")
                 .addPathPatterns("/modificar_pacientes")
                 .addPathPatterns("/ficha/**")
                 ;
+        registry.addInterceptor(new LoginInterceptor())
+                .addPathPatterns("/login");
     }
     
     @Override
